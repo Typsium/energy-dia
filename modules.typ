@@ -10,7 +10,7 @@
 
 #let draw_axis(line_fn, content_fn, width, height) = {
   line_fn((0, 0), (0, height), mark: (end: "straight"))
-  content_fn((0, height / 2), [energy/ eV], angle: 90deg, anchor: "south")
+  content_fn((0, height / 2), [energy / eV], angle: 90deg, anchor: "south")
 }
 
 #let draw_energy_level(line_fn, content_fn, energy, width, height, min, max) = {
@@ -28,7 +28,7 @@
   }
   if number == 2{
     line_fn((x - width/20 ,y - height/20),(x - width/20,y + height/20), mark: (end:"straight"))
-    line_fn((x + width/20 ,y - height/20),(x + width/20,y + height/20), mark: (end:"straight"))
+    line_fn((x + width/20 ,y - height/20),(x + width/20,y + height/20), mark: (start:"straight"))
   }
 }
 
