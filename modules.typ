@@ -13,10 +13,15 @@
   content_fn((0, height / 2), [energy / eV], angle: 90deg, anchor: "south")
 }
 
-#let draw_energy_level(line_fn, content_fn, energy, width, height, min, max) = {
+#let draw_energy_level(line_fn, content_fn, energy, width, height, min, max, degeneracy: 1) = {
   let y= scale_y(energy, min, max, height)
   let x= position_x_ao(width)
-  line_fn((x - width/7 ,y),(x + width/7,y))
+  let line_length = width / 7
+  let spacing = height / 50  // レスポンシブな間隔
+  for i in range(degeneracy) {
+    let offset = (i - (degeneracy - 1) / 2) * spacing
+    line_fn((x - line_length, y + offset),(x + line_length, y + offset))
+  }
   content_fn((width/5,y), [$energy$])
 }
 
