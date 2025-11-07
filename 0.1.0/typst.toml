@@ -1,0 +1,7 @@
+[package]
+name = "energy-dia"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["pawawa"]
+license = "MIT"
+exclude = ["*.pdf", "demo.typ", "test.csv",]

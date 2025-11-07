@@ -28,5 +28,5 @@
 
 #band(
   include_energy_labels:true,
-  5,6,7
+  5,6,7, 15
 )
