@@ -36,14 +36,5 @@
   height: 10,
   (energy:4, electrons:1),
   (energy:5, electrons:2, degeneracy:2),
-  (energy:6, electrons:1)
-)
-
-// Example with spin orientation
-#ao(
-  width: 10,
-  height: 10,
-  (energy:4, electrons:1, up: 1),
-  (energy:5, electrons:4, up: 1),
-  (energy:6, electrons:1, up: 0)
+  (energy:6, electrons:4, degeneracy:3, up:3)
 )
