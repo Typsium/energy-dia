@@ -64,14 +64,22 @@
 
 #let band(width:5, height:5, include_energy_labels: false, ..levels) = {
   let levels_pos = levels.pos()
-  let min = calc.min(..levels_pos)
-  let max = calc.max(..levels_pos)
-  cetz.canvas({
+  if levels_pos.len() == 0 {
+    cetz.canvas({
+      import cetz.draw: *
+      draw_axis(line, content, width, height)
+    })
+  } else {
+    let min = calc.min(..levels_pos)
+    let max = calc.max(..levels_pos)
+    cetz.canvas({
     import cetz.draw: *
+
     draw_axis(line, content, width, height)
 
     for level in levels_pos {
       draw_energy_level_band(line, content, level, width, height, min, max, include_energy_labels: include_energy_labels)
     }
   })
+  }
 }

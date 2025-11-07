@@ -68,7 +68,7 @@
   if levels.len() == 0 {
     0
   } else {
-    let energies = levels.map(it => it.energy)
+    let energies = levels.map(it => it.at("energy", default: 0))
     calc.min(..energies)
   }
 }
@@ -77,7 +77,7 @@
   if levels.len() == 0 {
     0
   } else {
-    let energies = levels.map(it => it.energy)
+    let energies = levels.map(it => it.at("energy", default: 0))
     calc.max(..energies)
   }
 }
@@ -135,13 +135,13 @@
   let right_x = 5 * width / 6 - width / 21
   for level in atom1 {
     if level.at("label", default: none) == label {
-      let y = scale_y(level.energy, min, max, height)
+      let y = scale_y(level.at("energy", default: 0), min, max, height)
       return (left_x, y)
     }
   }
   for level in molecule {
     if level.at("label", default: none) == label {
-      let y = scale_y(level.energy, min, max, height)
+      let y = scale_y(level.at("energy", default: 0), min, max, height)
       if position == "atom1_to_molecule" {
         return (center_left_x, y)
       } else {
@@ -151,7 +151,7 @@
   }
   for level in atom2 {
     if level.at("label", default: none) == label {
-      let y = scale_y(level.energy, min, max, height)
+      let y = scale_y(level.at("energy", default: 0), min, max, height)
       return (right_x, y)
     }
   }
