@@ -2,7 +2,7 @@
   if max == min {
     height / 2
   } else {
-    let scaled_y = height * (energy - min) / (max - min)
+    let scaled_y = height * 0.8 * (energy - min) / (max - min) + height * 0.1
     scaled_y
   }
 }
