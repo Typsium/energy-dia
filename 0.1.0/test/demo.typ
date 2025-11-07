@@ -1,4 +1,4 @@
-#import "../src/lib.typ": *
+#import "@preview/energy-dia:0.1.0": *
 
 #ao(
   width: 10,
@@ -16,8 +16,6 @@
   atom2: ((energy: -10, electrons: 1), (energy: -5, electrons: 1, label:4)),
   (1,2),(3,4), (2,4),
 )
-
-// bandテスト
 
 #let data= csv("test.csv")
 #let energies= data.map(row => float(row.at(0))).flatten()

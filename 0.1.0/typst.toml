@@ -2,6 +2,10 @@
 name = "energy-dia"
 version = "0.1.0"
 entrypoint = "lib.typ"
-authors = ["pawawa"]
-license = "GPLv3"
+authors = ["pawawa <https://github.com/pawawa-pururun>"]
+license = "GPL-3.0-or-later"
+description = "Draw atomic, molecular orbital energy diagrams."
 exclude = ["*.pdf", "demo.typ", "test.csv", "manual.typ"]
+repository = "https://github.com/pawawa-pururun/energy-dia"
+categories = [ "visualization" ]
+keywords = ["chemistry", "physics", "diagrams", "energy", "orbital", "atomic", "molecular", "band-structure", "cetz"]
