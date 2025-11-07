@@ -43,9 +43,9 @@
         let x = left + (i + 1) * spacing
         let is_up = calc.rem(i, 2) == 0
         if is_up {
-          line_fn((x, y + height/20), (x, y - height/20), mark: (end: "straight"))
-        } else {
           line_fn((x, y - height/20), (x, y + height/20), mark: (end: "straight"))
+        } else {
+          line_fn((x, y + height/20), (x, y - height/20), mark: (end: "straight"))
         }
       }
     } else {
@@ -53,11 +53,11 @@
       let down_count = number - up_count
       let current_x = left + spacing
       for i in range(up_count) {
-        line_fn((current_x, y + height/20), (current_x, y - height/20), mark: (end: "straight"))
+        line_fn((current_x, y - height/20), (current_x, y + height/20), mark: (end: "straight"))
         current_x += spacing
       }
       for i in range(down_count) {
-        line_fn((current_x, y - height/20), (current_x, y + height/20), mark: (end: "straight"))
+        line_fn((current_x, y + height/20), (current_x, y - height/20), mark: (end: "straight"))
         current_x += spacing
       }
     }
@@ -107,9 +107,9 @@
         let x = left + (i + 1) * spacing
         let is_up = calc.rem(i, 2) == 0
         if is_up {
-          line_fn((x, y + height/20), (x, y - height/20), mark: (end: "straight"))
-        } else {
           line_fn((x, y - height/20), (x, y + height/20), mark: (end: "straight"))
+        } else {
+          line_fn((x, y + height/20), (x, y - height/20), mark: (end: "straight"))
         }
       }
     } else {
@@ -117,11 +117,11 @@
       let down_count = number - up_count
       let current_x = left + spacing
       for i in range(up_count) {
-        line_fn((current_x, y + height/20), (current_x, y - height/20), mark: (end: "straight"))
+        line_fn((current_x, y - height/20), (current_x, y + height/20), mark: (end: "straight"))
         current_x += spacing
       }
       for i in range(down_count) {
-        line_fn((current_x, y - height/20), (current_x, y + height/20), mark: (end: "straight"))
+        line_fn((current_x, y + height/20), (current_x, y - height/20), mark: (end: "straight"))
         current_x += spacing
       }
     }

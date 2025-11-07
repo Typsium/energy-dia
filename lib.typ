@@ -3,13 +3,6 @@
 
 
 #let ao(width: 5, height: 5, ..levels) = {
-  // Draw atomic orbital energy level diagram
-  // 
-  // 5,
-  // 5,
-  // (energy:4, electrons:1), 
-  // (energy:5, electrons:2), 
-  // (energy:6, electrons:1)
   let pos_levels = levels.pos()
   if pos_levels.len() == 0 {
     cetz.canvas({
@@ -21,7 +14,7 @@
     let max = find_max(pos_levels)
     cetz.canvas({
     import cetz.draw: *
-    
+
     draw_axis(line, content, width, height)
 
     for level in pos_levels {
