@@ -3,5 +3,5 @@ name = "energy-dia"
 version = "0.1.0"
 entrypoint = "lib.typ"
 authors = ["pawawa"]
-license = "MIT"
+license = "GPLv3"
 exclude = ["*.pdf", "demo.typ", "test.csv", "manual.typ"]

@@ -23,6 +23,12 @@ Energy-Diaは、Typstでエネルギー図（原子軌道図、分子軌道図�
 #import "lib.typ": *
 ```
 
+## 依存関係
+
+このライブラリは以下の依存関係を使用しています：
+
+- **CeTZ**: 図を描画するためのライブラリ。ライセンス: GNU LESSER GENERAL PUBLIC LICENSE version 3
+
 ## 使用方法
 
 ### 原子軌道図 (AO)
@@ -93,5 +99,4 @@ Energy-Diaは、Typstでエネルギー図（原子軌道図、分子軌道図�
 詳細な使用方法は[manual.pdf](0.1.0/docs/manual.ja.pdf)を確認してください。
 
 ## ライセンス
-
-Apache License2.0 です。[LICENSE](LICENSE) を確認してください。
+このライブラリは GNU General Public License Version 3 の下でライセンスされています。[LICENSE](LICENSE) を確認してください。

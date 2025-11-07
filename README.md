@@ -23,6 +23,12 @@ Place these files in your project's root directory and import them in your docum
 #import "lib.typ": *
 ```
 
+## Dependencies
+
+This library depends on the following:
+
+- **CeTZ**: A library for drawing diagrams. License: GNU LESSER GENERAL PUBLIC LICENSE version 3
+
 ## Usage
 
 ### Atomic Orbital Diagram (AO)
@@ -98,6 +104,6 @@ For detailed usage instructions, please refer to [manual.pdf](0.1.0/docs/manual.
 
 
 ## LICENSE
+## License
 
-Apache License2.0 
-Please check [LICENSE](LICENSE).
+This project is licensed under the GNU General Public License Version 3. Please check [LICENSE](LICENSE).
