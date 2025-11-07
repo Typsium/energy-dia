@@ -1,7 +1,25 @@
 #import "modules.typ": *
 #import "@preview/cetz:0.4.2"
 
-
+/// Display an energy level diagram for atomic orbitals
+/// 
+/// Arguments:
+/// - width (length): Width of the diagram
+/// - height (length): Height of the diagram
+/// - levels (array of dictionaries): Energy level and electron count data. Each dictionary has the following keys:
+///   - energy (number): Energy value
+///   - electrons (number): Number of electrons (default: 0)
+///   - degeneracy (number): Degeneracy (default: 1)
+///   - caption (string): Caption (default: none)
+///   - up (boolean): Upward spin (default: none)
+/// 
+/// Example:
+/// ```
+/// #ao(
+///   (energy: -1, electrons: 2),
+///   (energy: 0, electrons: 1)
+/// )
+/// ```
 #let ao(width: 5, height: 5, ..levels) = {
   let pos_levels = levels.pos()
   if pos_levels.len() == 0 {
@@ -26,6 +44,39 @@
   }
 }
 
+/// Display an energy level diagram for molecular orbitals
+/// 
+/// Arguments:
+/// - width (length): Width of the diagram
+/// - height (length): Height of the diagram
+/// - atom1 (array of dictionaries): Energy level data for the left atom. Each dictionary has the following keys:
+///   - energy (number): Energy value
+///   - electrons (number): Number of electrons (default: 0)
+///   - degeneracy (number): Degeneracy (default: 1)
+///   - caption (string): Caption (default: none)
+///   - up (boolean): Upward spin (default: none)
+/// - molecule (array of dictionaries): Energy level data for the molecule. Each dictionary has the following keys:
+///   - energy (number): Energy value
+///   - electrons (number): Number of electrons (default: 0)
+///   - degeneracy (number): Degeneracy (default: 1)
+///   - caption (string): Caption (default: none)
+///   - up (boolean): Upward spin (default: none)
+/// - atom2 (array of dictionaries): Energy level data for the right atom. Each dictionary has the following keys:
+///   - energy (number): Energy value
+///   - electrons (number): Number of electrons (default: 0)
+///   - degeneracy (number): Degeneracy (default: 1)
+///   - caption (string): Caption (default: none)
+///   - up (boolean): Upward spin (default: none)
+/// - connections (array): Connection data between orbitals
+///
+/// Example:
+/// ```
+/// #mo(
+///   atom1: ((energy: -1, electrons: 2), (energy: 0, electrons: 1)),
+///   molecule: ((energy: -0.5, electrons: 2)),
+///   atom2: ((energy: -1, electrons: 2), (energy: 0, electrons: 1))
+/// )
+/// ```
 #let mo(width: 5, height: 5, atom1: (), molecule: (), atom2: (), ..connections)={
   let all_levels = atom1 + molecule + atom2
   let min = find_min(all_levels)
@@ -62,6 +113,21 @@
   })
 }
 
+/// Display an energy level diagram for band structure
+/// 
+/// Arguments:
+/// - width (length): Width of the diagram
+/// - height (length): Height of the diagram
+/// - include_energy_labels (boolean): Whether to display energy labels
+/// - levels (array of numbers): List of energy level values
+/// 
+/// Example:
+/// ```
+/// #band(
+///   -1, 0, 0.5, 1,
+///   include_energy_labels: true
+/// )
+/// ```
 #let band(width:5, height:5, include_energy_labels: false, ..levels) = {
   let levels_pos = levels.pos()
   if levels_pos.len() == 0 {
