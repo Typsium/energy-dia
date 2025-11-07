@@ -97,3 +97,7 @@ See the `demo.typ` file for complete usage examples.
 For detailed usage instructions, please refer to [manual.pdf](0.1.0/docs/manual.pdf).
 
 
+## LICENSE
+
+Apache License2.0 
+Please check [LICENSE](LICENSE).

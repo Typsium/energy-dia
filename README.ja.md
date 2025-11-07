@@ -91,3 +91,7 @@ Energy-Diaは、Typstでエネルギー図（原子軌道図、分子軌道図�
 ## 詳細
 
 詳細な使用方法は[manual.pdf](0.1.0/docs/manual.ja.pdf)を確認してください。
+
+## ライセンス
+
+Apache License2.0 です。[LICENSE](LICENSE) を確認してください。
