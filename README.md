@@ -92,4 +92,8 @@ Or load data from a CSV file:
 
 See the `demo.typ` file for complete usage examples.
 
+## Details
+
+For detailed usage instructions, please refer to [manual.pdf](0.1.0/docs/manual.pdf).
+
 

@@ -1,37 +1,37 @@
 #import "@preview/tidy:0.4.3"
 #import "../src/lib.typ": *
 
-// Page settings
+// ページ設定
 #set page(
   paper: "a4",
   margin: (x: 2cm, y: 2cm),
-  header: align(center)[Energy-Dia Manual],
+  header: align(center)[Energy-Dia マニュアル],
   footer: context align(center)[#counter(page).display("1")],
 )
 
-// Text settings
-#set text(font: "Times New Roman", size: 11pt, lang: "en")
+// テキスト設定
+#set text(font: ("Times New Roman", "YuMincho"), size: 11pt, lang: "ja")
 #set heading(numbering: "1.")
 
-// Introduction
-= Introduction
+// 導入
+= 導入
 
-Energy-Dia is a Typst library for creating energy diagrams such as atomic orbital diagrams, molecular orbital diagrams, and band structure diagrams. It utilizes the CeTZ library to easily draw diagrams for chemistry and physics.
+Energy-Dia は、原子軌道図、分子軌道図、バンド構造図などのエネルギー図を作成するための Typst ライブラリです。CeTZ ライブラリを利用して、化学や物理の図を簡単に描画します。
 
-== Features
+== 機能
 
-- *Atomic Orbital Diagrams (AO)*: Visualize energy levels and electron configurations of atoms.
-- *Molecular Orbital Diagrams (MO)*: Display molecular orbital formation and electron configurations.
-- *Band Structure Diagrams*: Plot band structures.
+- *原子軌道図 (AO)*: 原子のエネルギー準位と電子配置を視覚化します。
+- *分子軌道図 (MO)*: 分子軌道の形成と電子配置を表示します。
+- *バンド構造図*: バンド構造をプロットします。
 
-== Installation
+== インストール
 
-To use this library, add the following files to your Typst project:
+このライブラリを使用するには、以下のファイルを Typst プロジェクトに追加してください：
 
 - `lib.typ`
 - `modules.typ`
 
-Place these files in your project's root directory and import them in your document.
+これらのファイルをプロジェクトのルートディレクトリに置き、ドキュメントでインポートしてください。
 
 ```typst
 #import "lib.typ": *
@@ -39,22 +39,22 @@ Place these files in your project's root directory and import them in your docum
 
 #pagebreak()
 
-// API Documentation
-= API Documentation
+// API ドキュメント
+= API ドキュメント
 
-The following sections document the functions provided by the Energy-Dia library.
+以下のセクションでは、Energy-Dia ライブラリが提供する関数を文書化します。
 
 #let docs = tidy.parse-module(read("../src/lib.typ"))
 #tidy.show-module(docs, style: tidy.styles.default)
 
 #pagebreak()
 
-// Examples
-= Examples
+// 例
+= 例
 
-This section provides examples of how to use the Energy-Dia library.
+このセクションでは、Energy-Dia ライブラリの使用例を提供します。
 
-== Atomic Orbital Diagram
+== 原子軌道図
 
 ```typst
 #ao(
@@ -74,7 +74,7 @@ This section provides examples of how to use the Energy-Dia library.
   (energy: 6, electrons: 4, degeneracy: 3, up: 3)
 )
 
-== Molecular Orbital Diagram
+== 分子軌道図
 
 ```typst
 #mo(
@@ -96,7 +96,7 @@ This section provides examples of how to use the Energy-Dia library.
   (1, 2), (3, 4), (2, 4)
 )
 
-== Band Structure Diagram
+== バンド構造図
 
 ```typst
 #band(
