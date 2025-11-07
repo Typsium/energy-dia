@@ -1,4 +1,4 @@
-#import "lib.typ": *
+#import "../src/lib.typ": *
 
 #ao(
   width: 10,
