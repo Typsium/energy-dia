@@ -1,5 +1,5 @@
 /.github
 *.DS_Store
 *.pdf
-*.csv
 !demo.pdf
+!manual.pdf
