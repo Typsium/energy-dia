@@ -1,31 +1,31 @@
 # Energy-Dia
 
-Energy-Diaは、Typstでエネルギー図（原子軌道図、分子軌道図、バンド構造図）を作成するためのライブラリです。CeTZライブラリを使用して、化学や物理学の図を簡単に描画できます。
+Energy-Dia is a Typst library for creating energy diagrams such as atomic orbital diagrams, molecular orbital diagrams, and band structure diagrams. It utilizes the CeTZ library to easily draw diagrams for chemistry and physics.
 
-## 特徴
+## Features
 
-- **原子軌道図 (AO)**: 原子の軌道エネルギーと電子配置を視覚化
-- **分子軌道図 (MO)**: 分子軌道の形成と電子配置を表示
-- **バンド構造図**: 固体のバンド構造をプロットする用途に、電子の描画や、キャプション機能をなくす代わりにfloat列(コンマ区切り)でデータを渡せるようにし多もの
+- **Atomic Orbital Diagrams (AO)**: Visualize energy levels and electron configurations of atoms.
+- **Molecular Orbital Diagrams (MO)**: Display molecular orbital formation and electron configurations.
+- **Band Structure Diagrams**: Plot band structures.
 
-## インストール
+## Installation
 
-このライブラリを使用するには、Typstプロジェクトに以下のファイルを追加してください：
+To use this library, add the following files to your Typst project:
 
 - `lib.typ`
 - `modules.typ`
 
-プロジェクトのルートディレクトリにこれらのファイルを配置し、ドキュメント内でインポートします。
+Place these files in your project's root directory and import them in your document.
 
 ```typst
 #import "lib.typ": *
 ```
 
-## 使用方法
+## Usage
 
-### 原子軌道図 (AO)
+### Atomic Orbital Diagram (AO)
 
-原子軌道のエネルギーレベルと電子をプロットします。
+Plots energy levels and electrons for atomic orbitals.
 
 ```typst
 #ao(
@@ -37,17 +37,17 @@ Energy-Diaは、Typstでエネルギー図（原子軌道図、分子軌道図�
 )
 ```
 
-パラメータ:
-- `width`, `height`: 図のサイズ
-- `energy`: エネルギーレベル
-- `electrons`: 電子数
-- `degeneracy`: 縮退度（デフォルト: 1）
-- `caption`: ラベル
-- `up`: 上向きスピンの電子数（オプション）値が指定されていない場合はalphaスピンとbetaスピンが交互に描画
+Parameters:
+- `width`, `height`: Size of the diagram
+- `energy`: Energy level
+- `electrons`: Number of electrons
+- `degeneracy`: Degeneracy (default: 1)
+- `caption`: Label
+- `up`: Number of up-spin electrons (optional); if not specified, alpha and beta spins are drawn alternately
 
-### 分子軌道図 (MO)
+### Molecular Orbital Diagram (MO)
 
-分子軌道の形成を示す図を作成します。
+Creates diagrams showing molecular orbital formation.
 
 ```typst
 #mo(
@@ -60,13 +60,13 @@ Energy-Diaは、Typstでエネルギー図（原子軌道図、分子軌道図�
 )
 ```
 
-パラメータ:
-- `atom1`, `atom2`, `molecule`: 軌道データ。label以外はAOと同じものの多重配列。labelは軌道管を点線でつなぐために使う。
-- 接続: 軌道間の接続を指定。labelで指定された軌道同士を点線でつなぐ
+Parameters:
+- `atom1`, `atom2`, `molecule`: Orbital data. Same as AO but as arrays. `label` is used to connect orbitals with dashed lines.
+- Connections: Specify connections between orbitals. Connects orbitals specified by labels with dashed lines.
 
-### バンド構造図
+### Band Structure Diagram
 
-バンド構造をプロットします。
+Plots band structures.
 
 ```typst
 #band(
@@ -75,19 +75,19 @@ Energy-Diaは、Typstでエネルギー図（原子軌道図、分子軌道図�
 )
 ```
 
-またはCSVファイルからデータを読み込み:
+Or load data from a CSV file:
 
 ```typst
 #let data = csv("test.csv")
-#let energies= data.map(row => float(row.at(0))).flatten()
+#let energies = data.map(row => float(row.at(0))).flatten()
 #band(
   include_energy_labels: false,
   ..energies
 )
 ```
 
-## 例
+## Examples
 
-`demo.typ`ファイルに完全な使用例が含まれています。
+See the `demo.typ` file for complete usage examples.
 
 
