@@ -7,6 +7,7 @@
 /// - width (length): Width of the diagram
 /// - height (length): Height of the diagram
 /// - name (string): Name of the atom (default: none)
+/// - exclude_energy (boolean): Whether to exclude energy labels (default: false)
 /// - levels (array of dictionaries): Energy level and electron count data. Each dictionary has the following keys:
 ///   - energy (number): Energy value
 ///   - electrons (number): Number of electrons (default: 0)
@@ -55,6 +56,8 @@
 /// Arguments:
 /// - width (length): Width of the diagram
 /// - height (length): Height of the diagram
+/// - names (array): Names of the atoms and molecule (default: ())
+/// - exclude_energy (boolean): Whether to exclude energy labels (default: false)
 /// - atom1 (array of dictionaries): Energy level data for the left atom. Each dictionary has the following keys:
 ///   - energy (number): Energy value
 ///   - electrons (number): Number of electrons (default: 0)
@@ -135,6 +138,7 @@
 /// Arguments:
 /// - width (length): Width of the diagram
 /// - height (length): Height of the diagram
+/// - name (string): Name of the substance (default: none)
 /// - include_energy_labels (boolean): Whether to display energy labels
 /// - levels (array of numbers): List of energy level values
 /// 
@@ -145,7 +149,7 @@
 ///   include_energy_labels: true
 /// )
 /// ```
-#let band(width:5, height:5, include_energy_labels: false, ..levels) = {
+#let band(width:5, height:5, name:none, include_energy_labels: false, ..levels) = {
   let levels_pos = levels.pos()
   if levels_pos.len() == 0 {
     cetz.canvas({
@@ -159,6 +163,11 @@
     import cetz.draw: *
 
     draw_axis(line, content, width, height)
+    if name != none {
+      let x_position = width / 2
+      draw_atomic_name(line, content, name, x_position, height)
+    }else{
+    }
 
     for level in levels_pos {
       draw_energy_level_band(line, content, level, width, height, min, max, include_energy_labels: include_energy_labels)
