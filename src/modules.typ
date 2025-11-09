@@ -53,16 +53,39 @@
         }
       }
     } else {
-      let up_count = calc.min(up, number)
+      let up_count = up
       let down_count = number - up_count
-      let current_x = left + spacing
-      for i in range(up_count) {
-        line_fn((current_x, y - height/20), (current_x, y + height/20), mark: (end: "straight"))
-        current_x += spacing
-      }
-      for i in range(down_count) {
-        line_fn((current_x, y + height/20), (current_x, y - height/20), mark: (end: "straight"))
-        current_x += spacing
+
+      if up_count >= down_count{
+        let smaller = down_count
+        let current_x = left + spacing
+        for i in range(smaller){
+          line_fn((current_x, y - height/20), (current_x, y + height/20), mark: (end: "straight"))
+          current_x += spacing
+          line_fn((current_x, y + height/20), (current_x, y - height/20), mark: (end: "straight"))
+          current_x += spacing
+        }
+        let rem = up_count - smaller
+        let current_x = left + spacing * (2 * smaller + 1)
+        for i in range(rem){
+          line_fn((current_x, y - height/20), (current_x, y + height/20), mark: (end: "straight"))
+          current_x += spacing
+        }
+      }else{
+        let smaller = up_count
+        for i in range(smaller){
+          let current_x = left + spacing
+          line_fn((current_x, y + height/20), (current_x, y - height/20), mark: (end: "straight"))
+          current_x += spacing
+          line_fn((current_x, y - height/20), (current_x, y + height/20), mark: (end: "straight"))
+          current_x += spacing
+        }
+        let rem = down_count - smaller
+        let current_x = left + spacing * (2 * smaller + 1)
+        for i in range(rem){
+          line_fn((current_x, y + height/20), (current_x, y - height/20), mark: (end: "straight"))
+          current_x += spacing
+        }
       }
     }
   }
@@ -127,14 +150,36 @@
     } else {
       let up_count = calc.min(up, number)
       let down_count = number - up_count
-      let current_x = left + spacing
-      for i in range(up_count) {
-        line_fn((current_x, y - height/20), (current_x, y + height/20), mark: (end: "straight"))
-        current_x += spacing
-      }
-      for i in range(down_count) {
-        line_fn((current_x, y + height/20), (current_x, y - height/20), mark: (end: "straight"))
-        current_x += spacing
+      if up_count >= down_count{
+        let smaller = down_count
+        let current_x = left + spacing
+        for i in range(smaller){
+          line_fn((current_x, y - height/20), (current_x, y + height/20), mark: (end: "straight"))
+          current_x += spacing
+          line_fn((current_x, y + height/20), (current_x, y - height/20), mark: (end: "straight"))
+          current_x += spacing
+        }
+        let rem = up_count - smaller
+        let current_x = left + spacing * (2 * smaller + 1)
+        for i in range(rem){
+          line_fn((current_x, y - height/20), (current_x, y + height/20), mark: (end: "straight"))
+          current_x += spacing
+        }
+      }else{
+        let smaller = up_count
+        for i in range(smaller){
+          let current_x = left + spacing
+          line_fn((current_x, y + height/20), (current_x, y - height/20), mark: (end: "straight"))
+          current_x += spacing
+          line_fn((current_x, y - height/20), (current_x, y + height/20), mark: (end: "straight"))
+          current_x += spacing
+        }
+        let rem = down_count - smaller
+        let current_x = left + spacing * (2 * smaller + 1)
+        for i in range(rem){
+          line_fn((current_x, y + height/20), (current_x, y - height/20), mark: (end: "straight"))
+          current_x += spacing
+        }
       }
     }
   }
