@@ -7,7 +7,7 @@
   }
 }
 
-#let position-x-ao(width)={
+#let position-x-ao(width) = {
   let pos-x = width / 2
   pos-x
 }
@@ -17,26 +17,36 @@
   content-fn((0, height / 2), [energy / eV], angle: 90deg, anchor: "south")
 }
 
-#let draw-energy-level-ao(line-fn, content-fn, energy, width, height, min, max, degeneracy: 1, caption: none, exclude-energy: bool) = {
-  let y= scale-y(energy, min, max, height)
-  let x= position-x-ao(width)
+#let draw-energy-level-ao(
+  line-fn,
+  content-fn,
+  energy,
+  width,
+  height,
+  min,
+  max,
+  degeneracy: 1,
+  caption: none,
+  exclude-energy: bool,
+) = {
+  let y = scale-y(energy, min, max, height)
+  let x = position-x-ao(width)
   let line-length = width / 7
   let spacing = height / 50
   for i in range(degeneracy) {
     let offset = (i - (degeneracy - 1) / 2) * spacing
-    line-fn((x - line-length, y + offset),(x + line-length, y + offset))
+    line-fn((x - line-length, y + offset), (x + line-length, y + offset))
   }
   if exclude-energy == false {
-  content-fn((x - line-length - width/20,y), [$energy$])
+    content-fn((x - line-length - width / 20, y), [$energy$])
   }
-  if caption !=none{
-    content-fn((x + line-length + width/20, y), [$caption$])
+  if caption != none {
+    content-fn((x + line-length + width / 20, y), [$caption$])
   }
 }
 
 #let draw-electron-ao(line-fn, content-fn, energy, number, width, height, min, max, up: none) = {
-  if number <= 0 {
-  } else {
+  if number <= 0 {} else {
     let y = scale-y(energy, min, max, height)
     let x-center = position-x-ao(width)
     let left = x-center - width / 7
@@ -47,43 +57,43 @@
         let x = left + (i + 1) * spacing
         let is-up = calc.rem(i, 2) == 0
         if is-up {
-          line-fn((x, y - height/20), (x, y + height/20), mark: (end: "straight"))
+          line-fn((x, y - height / 20), (x, y + height / 20), mark: (end: "straight"))
         } else {
-          line-fn((x, y + height/20), (x, y - height/20), mark: (end: "straight"))
+          line-fn((x, y + height / 20), (x, y - height / 20), mark: (end: "straight"))
         }
       }
     } else {
       let up-count = up
       let down-count = number - up-count
 
-      if up-count >= down-count{
+      if up-count >= down-count {
         let smaller = down-count
         let current-x = left + spacing
-        for i in range(smaller){
-          line-fn((current-x, y - height/20), (current-x, y + height/20), mark: (end: "straight"))
+        for i in range(smaller) {
+          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight"))
           current-x += spacing
-          line-fn((current-x, y + height/20), (current-x, y - height/20), mark: (end: "straight"))
+          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight"))
           current-x += spacing
         }
         let rem = up-count - smaller
         let current-x = left + spacing * (2 * smaller + 1)
-        for i in range(rem){
-          line-fn((current-x, y - height/20), (current-x, y + height/20), mark: (end: "straight"))
+        for i in range(rem) {
+          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight"))
           current-x += spacing
         }
-      }else{
+      } else {
         let smaller = up-count
-        for i in range(smaller){
+        for i in range(smaller) {
           let current-x = left + spacing
-          line-fn((current-x, y + height/20), (current-x, y - height/20), mark: (end: "straight"))
+          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight"))
           current-x += spacing
-          line-fn((current-x, y - height/20), (current-x, y + height/20), mark: (end: "straight"))
+          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight"))
           current-x += spacing
         }
         let rem = down-count - smaller
         let current-x = left + spacing * (2 * smaller + 1)
-        for i in range(rem){
-          line-fn((current-x, y + height/20), (current-x, y - height/20), mark: (end: "straight"))
+        for i in range(rem) {
+          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight"))
           current-x += spacing
         }
       }
@@ -95,7 +105,7 @@
   content-fn((width, height), [$name$], anchor: "center")
 }
 
-#let find-min(levels)={
+#let find-min(levels) = {
   if levels.len() == 0 {
     0
   } else {
@@ -104,7 +114,7 @@
   }
 }
 
-#let find-max(levels)={
+#let find-max(levels) = {
   if levels.len() == 0 {
     0
   } else {
@@ -114,25 +124,36 @@
 }
 
 
-#let draw-energy-level-mo(line-fn, content-fn, energy, x-pos, width, height, min, max, degeneracy: 1, caption: none, exclude-energy: bool) = {
-  let y= scale-y(energy, min, max, height)
+#let draw-energy-level-mo(
+  line-fn,
+  content-fn,
+  energy,
+  x-pos,
+  width,
+  height,
+  min,
+  max,
+  degeneracy: 1,
+  caption: none,
+  exclude-energy: bool,
+) = {
+  let y = scale-y(energy, min, max, height)
   let line-length = width / 21
   let spacing = height / 50
   for i in range(degeneracy) {
     let offset = (i - (degeneracy - 1) / 2) * spacing
-    line-fn((x-pos - line-length, y + offset),(x-pos + line-length, y + offset))
+    line-fn((x-pos - line-length, y + offset), (x-pos + line-length, y + offset))
   }
   if exclude-energy == false {
-    content-fn((x-pos - line-length - width/20,y), [$energy$])
+    content-fn((x-pos - line-length - width / 20, y), [$energy$])
   }
-  if caption !=none{
-  content-fn((x-pos + line-length + width/20, y), [$caption$])
+  if caption != none {
+    content-fn((x-pos + line-length + width / 20, y), [$caption$])
   }
 }
 
 #let draw-electron-mo(line-fn, content-fn, energy, number, x-pos, width, height, min, max, up: none) = {
-  if number <= 0 {
-  } else {
+  if number <= 0 {} else {
     let y = scale-y(energy, min, max, height)
     let left = x-pos - width / 21
     let right = x-pos + width / 21
@@ -142,42 +163,42 @@
         let x = left + (i + 1) * spacing
         let is-up = calc.rem(i, 2) == 0
         if is-up {
-          line-fn((x, y - height/20), (x, y + height/20), mark: (end: "straight"))
+          line-fn((x, y - height / 20), (x, y + height / 20), mark: (end: "straight"))
         } else {
-          line-fn((x, y + height/20), (x, y - height/20), mark: (end: "straight"))
+          line-fn((x, y + height / 20), (x, y - height / 20), mark: (end: "straight"))
         }
       }
     } else {
       let up-count = calc.min(up, number)
       let down-count = number - up-count
-      if up-count >= down-count{
+      if up-count >= down-count {
         let smaller = down-count
         let current-x = left + spacing
-        for i in range(smaller){
-          line-fn((current-x, y - height/20), (current-x, y + height/20), mark: (end: "straight"))
+        for i in range(smaller) {
+          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight"))
           current-x += spacing
-          line-fn((current-x, y + height/20), (current-x, y - height/20), mark: (end: "straight"))
+          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight"))
           current-x += spacing
         }
         let rem = up-count - smaller
         let current-x = left + spacing * (2 * smaller + 1)
-        for i in range(rem){
-          line-fn((current-x, y - height/20), (current-x, y + height/20), mark: (end: "straight"))
+        for i in range(rem) {
+          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight"))
           current-x += spacing
         }
-      }else{
+      } else {
         let smaller = up-count
-        for i in range(smaller){
+        for i in range(smaller) {
           let current-x = left + spacing
-          line-fn((current-x, y + height/20), (current-x, y - height/20), mark: (end: "straight"))
+          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight"))
           current-x += spacing
-          line-fn((current-x, y - height/20), (current-x, y + height/20), mark: (end: "straight"))
+          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight"))
           current-x += spacing
         }
         let rem = down-count - smaller
         let current-x = left + spacing * (2 * smaller + 1)
-        for i in range(rem){
-          line-fn((current-x, y + height/20), (current-x, y - height/20), mark: (end: "straight"))
+        for i in range(rem) {
+          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight"))
           current-x += spacing
         }
       }
@@ -219,10 +240,10 @@
   for conn in connections {
     let label1 = conn.at(0)
     let label2 = conn.at(1)
-    let level1 = atom1.map(it => it.at("label",default:none))
+    let level1 = atom1.map(it => it.at("label", default: none))
     let position = if label1 in level1 or label2 in level1 {
       "atom1-to-molecule"
-    }else{
+    } else {
       "atom2-to-molecule"
     }
     let pos1 = get-position-by-label(label1, atom1, molecule, atom2, width, height, min, max, position)
@@ -234,11 +255,11 @@
 }
 
 #let draw-energy-level-band(line-fn, content-fn, energy, width, height, min, max, include-energy-labels: bool) = {
-  let y= scale-y(energy, min, max, height)
+  let y = scale-y(energy, min, max, height)
   let x = width / 2
   let line-length = width / 7
-  line-fn((x - line-length, y),(x + line-length, y))
+  line-fn((x - line-length, y), (x + line-length, y))
   if include-energy-labels {
-    content-fn((x - line-length - width/20,y), [$energy$])
+    content-fn((x - line-length - width / 20, y), [$energy$])
   }
 }
