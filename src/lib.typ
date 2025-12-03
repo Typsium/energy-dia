@@ -22,7 +22,7 @@
 ///   (energy: 0, electrons: 1)
 /// )
 /// ```
-#let ao(width: 5, height: 5, name: none, exclude-energy: false, ..levels) = {
+#let ao(width: 5, height: 5, harpoon:true, name: none, exclude-energy: false, ..levels) = {
   let pos-levels = levels.pos()
   cetz.canvas({
     import cetz.draw: *
@@ -60,6 +60,7 @@
           min,
           max,
           up: level.at("up", default: none),
+          harpoon: harpoon,
         )
       }
     }
@@ -103,7 +104,7 @@
 /// ```
 /// Warning:
 /// Each atom and molecular orbital is required to be an array. Therefore, even if there is only one orbital, do not forget to put a comma at the end.
-#let mo(width: 5, height: 5, names: (), exclude-energy: false, atom1: (), molecule: (), atom2: (), ..connections) = {
+#let mo(width: 5, height: 5, names: (), harpoon: true, exclude-energy: false, atom1: (), molecule: (), atom2: (), ..connections) = {
   let all-levels = atom1 + molecule + atom2
   let min = find-min(all-levels)
   let max = find-max(all-levels)
@@ -139,6 +140,7 @@
         min,
         max,
         up: level.at("up", default: none),
+        harpoon: harpoon,
       )
     }
 
@@ -170,6 +172,7 @@
         min,
         max,
         up: level.at("up", default: none),
+        harpoon: harpoon,
       )
     }
 
@@ -200,6 +203,7 @@
         min,
         max,
         up: level.at("up", default: none),
+        harpoon: harpoon,
       )
     }
 
