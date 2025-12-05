@@ -45,7 +45,7 @@
   }
 }
 
-#let draw-electron-ao(line-fn, content-fn, energy, number, width, height, min, max, up: none) = {
+#let draw-electron-ao(line-fn, content-fn, energy, number, width, height, min, max, up: none, harpoon:bool) = {
   if number <= 0 {} else {
     let y = scale-y(energy, min, max, height)
     let x-center = position-x-ao(width)
@@ -57,9 +57,9 @@
         let x = left + (i + 1) * spacing
         let is-up = calc.rem(i, 2) == 0
         if is-up {
-          line-fn((x, y - height / 20), (x, y + height / 20), mark: (end: "straight"))
+          line-fn((x, y - height / 20), (x, y + height / 20), mark: (end: "straight", harpoon: harpoon))
         } else {
-          line-fn((x, y + height / 20), (x, y - height / 20), mark: (end: "straight"))
+          line-fn((x, y + height / 20), (x, y - height / 20), mark: (end: "straight", harpoon: harpoon))
         }
       }
     } else {
@@ -70,30 +70,30 @@
         let smaller = down-count
         let current-x = left + spacing
         for i in range(smaller) {
-          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight"))
+          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight", harpoon: harpoon))
           current-x += spacing
-          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight"))
+          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight", harpoon: harpoon))
           current-x += spacing
         }
         let rem = up-count - smaller
         let current-x = left + spacing * (2 * smaller + 1)
         for i in range(rem) {
-          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight"))
+          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight", harpoon: harpoon))
           current-x += spacing
         }
       } else {
         let smaller = up-count
         for i in range(smaller) {
           let current-x = left + spacing
-          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight"))
+          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight", harpoon: harpoon))
           current-x += spacing
-          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight"))
+          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight", harpoon: harpoon))
           current-x += spacing
         }
         let rem = down-count - smaller
         let current-x = left + spacing * (2 * smaller + 1)
         for i in range(rem) {
-          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight"))
+          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight", harpoon: harpoon))
           current-x += spacing
         }
       }
@@ -152,7 +152,7 @@
   }
 }
 
-#let draw-electron-mo(line-fn, content-fn, energy, number, x-pos, width, height, min, max, up: none) = {
+#let draw-electron-mo(line-fn, content-fn, energy, number, x-pos, width, height, min, max, up: none, harpoon: bool) = {
   if number <= 0 {} else {
     let y = scale-y(energy, min, max, height)
     let left = x-pos - width / 21
@@ -163,9 +163,9 @@
         let x = left + (i + 1) * spacing
         let is-up = calc.rem(i, 2) == 0
         if is-up {
-          line-fn((x, y - height / 20), (x, y + height / 20), mark: (end: "straight"))
+          line-fn((x, y - height / 20), (x, y + height / 20), mark: (end: "straight", harpoon: harpoon))
         } else {
-          line-fn((x, y + height / 20), (x, y - height / 20), mark: (end: "straight"))
+          line-fn((x, y + height / 20), (x, y - height / 20), mark: (end: "straight", harpoon: harpoon))
         }
       }
     } else {
@@ -175,30 +175,30 @@
         let smaller = down-count
         let current-x = left + spacing
         for i in range(smaller) {
-          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight"))
+          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight", harpoon: harpoon))
           current-x += spacing
-          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight"))
+          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight", harpoon: harpoon))
           current-x += spacing
         }
         let rem = up-count - smaller
         let current-x = left + spacing * (2 * smaller + 1)
         for i in range(rem) {
-          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight"))
+          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight", harpoon: harpoon))
           current-x += spacing
         }
       } else {
         let smaller = up-count
         for i in range(smaller) {
           let current-x = left + spacing
-          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight"))
+          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight", harpoon: harpoon))
           current-x += spacing
-          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight"))
+          line-fn((current-x, y - height / 20), (current-x, y + height / 20), mark: (end: "straight", harpoon: harpoon))
           current-x += spacing
         }
         let rem = down-count - smaller
         let current-x = left + spacing * (2 * smaller + 1)
         for i in range(rem) {
-          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight"))
+          line-fn((current-x, y + height / 20), (current-x, y - height / 20), mark: (end: "straight", harpoon: harpoon))
           current-x += spacing
         }
       }
