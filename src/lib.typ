@@ -1,6 +1,47 @@
 #import "modules.typ": *
 #import "@preview/cetz:0.4.2"
 
+#let ao-cets(line-fn, content-fn, width: 5, height: 5, harpoon:true, name: none, exclude-energy: false, ..levels)={
+  let pos-levels = levels.pos()
+  draw-axis(line-fn, content-fn, width, height)
+  if pos-levels.len() != 0 {
+    if name != none {
+      let x-position = width / 2
+      draw-atomic-name(line-fn, content-fn, name, x-position, height)
+    }
+    let min = find-min(pos-levels)
+    let max = find-max(pos-levels)
+
+    for level in pos-levels {
+      draw-energy-level-ao(
+        line-fn,
+        content-fn,
+        level.at("energy"),
+        width,
+        height,
+        min,
+        max,
+        degeneracy: level.at("degeneracy", default: 1),
+        caption: level.at("caption", default: none),
+        exclude-energy: exclude-energy,
+      )
+
+      draw-electron-ao(
+        line-fn,
+        content-fn,
+        level.at("energy"),
+        level.at("electrons", default: 0),
+        width,
+        height,
+        min,
+        max,
+        up: level.at("up", default: none),
+        harpoon: harpoon,
+      )
+    }
+  }
+}
+
 /// Display an energy level diagram for atomic orbitals
 ///
 /// Arguments:
@@ -23,48 +64,131 @@
 /// )
 /// ```
 #let ao(width: 5, height: 5, harpoon:true, name: none, exclude-energy: false, ..levels) = {
-  let pos-levels = levels.pos()
   cetz.canvas({
     import cetz.draw: *
+    ao-cets(
+      line,
+      content,
+      width: width,
+      height: height,
+      harpoon: harpoon,
+      name: name,
+      exclude-energy: exclude-energy,
+      ..levels,
+    )
+  })
+}
 
-    draw-axis(line, content, width, height)
-    if pos-levels.len() != 0 {
-      if name != none {
-        let x-position = width / 2
-        draw-atomic-name(line, content, name, x-position, height)
-      }
-      let min = find-min(pos-levels)
-      let max = find-max(pos-levels)
+#let mo-cets(line-fn, content-fn, width: 5, height: 5, names: (), harpoon: true, exclude-energy: false, atom1: (), molecule: (), atom2: (), ..connections) = {
+  let all-levels = atom1 + molecule + atom2
+  let min = find-min(all-levels)
+  let max = find-max(all-levels)
 
-      for level in pos-levels {
-        draw-energy-level-ao(
-          line,
-          content,
-          level.at("energy"),
-          width,
-          height,
-          min,
-          max,
-          degeneracy: level.at("degeneracy", default: 1),
-          caption: level.at("caption", default: none),
-          exclude-energy: exclude-energy,
-        )
+  draw-axis(line-fn, content-fn, width, height)
 
-        draw-electron-ao(
-          line,
-          content,
-          level.at("energy"),
-          level.at("electrons", default: 0),
-          width,
-          height,
-          min,
-          max,
-          up: level.at("up", default: none),
-          harpoon: harpoon,
-        )
+  let left-x = width / 6
+  for level in atom1 {
+    draw-energy-level-mo(
+      line-fn,
+      content-fn,
+      level.at("energy"),
+      left-x,
+      width,
+      height,
+      min,
+      max,
+      degeneracy: level.at("degeneracy", default: 1),
+      caption: level.at("caption", default: none),
+      exclude-energy: exclude-energy,
+    )
+
+    draw-electron-mo(
+      line-fn,
+      content-fn,
+      level.at("energy"),
+      level.at("electrons", default: 0),
+      left-x,
+      width,
+      height,
+      min,
+      max,
+      up: level.at("up", default: none),
+      harpoon: harpoon,
+    )
+  }
+
+
+  let center-x = width / 2
+  for level in molecule {
+    draw-energy-level-mo(
+      line-fn,
+      content-fn,
+      level.at("energy"),
+      center-x,
+      width,
+      height,
+      min,
+      max,
+      degeneracy: level.at("degeneracy", default: 1),
+      caption: level.at("caption", default: none),
+      exclude-energy: exclude-energy,
+    )
+
+    draw-electron-mo(
+      line-fn,
+      content-fn,
+      level.at("energy"),
+      level.at("electrons", default: 0),
+      center-x,
+      width,
+      height,
+      min,
+      max,
+      up: level.at("up", default: none),
+      harpoon: harpoon,
+    )
+  }
+
+  let right-x = 5 * width / 6
+  for level in atom2 {
+    draw-energy-level-mo(
+      line-fn,
+      content-fn,
+      level.at("energy"),
+      right-x,
+      width,
+      height,
+      min,
+      max,
+      degeneracy: level.at("degeneracy", default: 1),
+      caption: level.at("caption", default: none),
+      exclude-energy: exclude-energy,
+    )
+
+    draw-electron-mo(
+      line-fn,
+      content-fn,
+      level.at("energy"),
+      level.at("electrons", default: 0),
+      right-x,
+      width,
+      height,
+      min,
+      max,
+      up: level.at("up", default: none),
+      harpoon: harpoon,
+    )
+  }
+  draw-connections(line-fn, connections.pos(), atom1, molecule, atom2, width, height, min, max)
+
+  if names != () {
+    let x-positions = (left-x, center-x, right-x)
+    for i in range(names.len()) {
+      if names.at(i) != "" {
+        draw-atomic-name(line-fn, content-fn, names.at(i), x-positions.at(i), height)
       }
     }
-  })
+  }
 }
 
 /// Display an energy level diagram for molecular orbitals
@@ -105,120 +229,46 @@
 /// Warning:
 /// Each atom and molecular orbital is required to be an array. Therefore, even if there is only one orbital, do not forget to put a comma at the end.
 #let mo(width: 5, height: 5, names: (), harpoon: true, exclude-energy: false, atom1: (), molecule: (), atom2: (), ..connections) = {
-  let all-levels = atom1 + molecule + atom2
-  let min = find-min(all-levels)
-  let max = find-max(all-levels)
   cetz.canvas({
     import cetz.draw: *
-
-    draw-axis(line, content, width, height)
-
-    let left-x = width / 6
-    for level in atom1 {
-      draw-energy-level-mo(
-        line,
-        content,
-        level.at("energy"),
-        left-x,
-        width,
-        height,
-        min,
-        max,
-        degeneracy: level.at("degeneracy", default: 1),
-        caption: level.at("caption", default: none),
-        exclude-energy: exclude-energy,
-      )
-
-      draw-electron-mo(
-        line,
-        content,
-        level.at("energy"),
-        level.at("electrons", default: 0),
-        left-x,
-        width,
-        height,
-        min,
-        max,
-        up: level.at("up", default: none),
-        harpoon: harpoon,
-      )
-    }
-
-
-    let center-x = width / 2
-    for level in molecule {
-      draw-energy-level-mo(
-        line,
-        content,
-        level.at("energy"),
-        center-x,
-        width,
-        height,
-        min,
-        max,
-        degeneracy: level.at("degeneracy", default: 1),
-        caption: level.at("caption", default: none),
-        exclude-energy: exclude-energy,
-      )
-
-      draw-electron-mo(
-        line,
-        content,
-        level.at("energy"),
-        level.at("electrons", default: 0),
-        center-x,
-        width,
-        height,
-        min,
-        max,
-        up: level.at("up", default: none),
-        harpoon: harpoon,
-      )
-    }
-
-    let right-x = 5 * width / 6
-    for level in atom2 {
-      draw-energy-level-mo(
-        line,
-        content,
-        level.at("energy"),
-        right-x,
-        width,
-        height,
-        min,
-        max,
-        degeneracy: level.at("degeneracy", default: 1),
-        caption: level.at("caption", default: none),
-        exclude-energy: exclude-energy,
-      )
-
-      draw-electron-mo(
-        line,
-        content,
-        level.at("energy"),
-        level.at("electrons", default: 0),
-        right-x,
-        width,
-        height,
-        min,
-        max,
-        up: level.at("up", default: none),
-        harpoon: harpoon,
-      )
-    }
-
-
-    draw-connections(line, connections.pos(), atom1, molecule, atom2, width, height, min, max)
-
-    if names != () {
-      let x-positions = (left-x, center-x, right-x)
-      for i in range(names.len()) {
-        if names.at(i) != "" {
-          draw-atomic-name(line, content, names.at(i), x-positions.at(i), height)
-        }
-      }
-    }
+    mo-cets(
+      line,
+      content,
+      width: width,
+      height: height,
+      names: names,
+      harpoon: harpoon,
+      exclude-energy: exclude-energy,
+      atom1: atom1,
+      molecule: molecule,
+      atom2: atom2,
+      ..connections,
+    )    
   })
+}
+
+#let band-cets(line-fn, content-fn, width: 5, height: 5, name: none, include-energy-labels: false, ..levels)={
+  let levels-pos = levels.pos()
+  let min = calc.min(..levels-pos)
+  let max = calc.max(..levels-pos)
+  draw-axis(line-fn, content-fn, width, height)
+  if name != none {
+    let x-position = width / 2
+    draw-atomic-name(line-fn, content-fn, name, x-position, height)
+  }
+
+  for level in levels-pos {
+    draw-energy-level-band(
+      line-fn,
+      content-fn,
+      level,
+      width,
+      height,
+      min,
+      max,
+      include-energy-labels: include-energy-labels,
+    )
+  }
 }
 
 /// Display an energy level diagram for band structure
@@ -245,29 +295,17 @@
       draw-axis(line, content, width, height)
     })
   } else {
-    let min = calc.min(..levels-pos)
-    let max = calc.max(..levels-pos)
     cetz.canvas({
       import cetz.draw: *
-
-      draw-axis(line, content, width, height)
-      if name != none {
-        let x-position = width / 2
-        draw-atomic-name(line, content, name, x-position, height)
-      } else {}
-
-      for level in levels-pos {
-        draw-energy-level-band(
-          line,
-          content,
-          level,
-          width,
-          height,
-          min,
-          max,
-          include-energy-labels: include-energy-labels,
-        )
-      }
+      band-cets(
+        line,
+        content,
+        width: width,
+        height: height,
+        name: name,
+        include-energy-labels: include-energy-labels,
+        ..levels,
+      )
     })
   }
 }
