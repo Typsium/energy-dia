@@ -145,10 +145,10 @@
     line-fn((x-pos - line-length, y + offset), (x-pos + line-length, y + offset))
   }
   if exclude-energy == false {
-    content-fn((x-pos - line-length - width / 20, y), [$energy$])
+    content-fn((x-pos - line-length - width / 20, y), box([$energy$], fill:white, inset:1pt))
   }
   if caption != none {
-    content-fn((x-pos + line-length + width / 20, y), [$caption$])
+    content-fn((x-pos + line-length + width / 20, y), box([$caption$], fill:white, inset:1pt))
   }
 }
 

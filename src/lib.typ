@@ -86,6 +86,8 @@
 
   draw-axis(line-fn, content-fn, width, height)
 
+  draw-connections(line-fn, connections.pos(), atom1, molecule, atom2, width, height, min, max)
+
   let left-x = width / 6
   for level in atom1 {
     draw-energy-level-mo(
@@ -179,7 +181,6 @@
       harpoon: harpoon,
     )
   }
-  draw-connections(line-fn, connections.pos(), atom1, molecule, atom2, width, height, min, max)
 
   if names != () {
     let x-positions = (left-x, center-x, right-x)
