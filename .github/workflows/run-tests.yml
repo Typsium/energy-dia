@@ -6,8 +6,11 @@ on:
       - src/**
       - tests/**
       - .github/**
+      - typst.toml
+      - demo/**
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   tests:
@@ -15,6 +18,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v4
+        with:
+          cache-dependency-path: ci/requirements.typ
 
       - name: Install tytanic
         uses: taiki-e/cache-cargo-install-action@v2
